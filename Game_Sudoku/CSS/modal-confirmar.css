@@ -1,0 +1,72 @@
+.modal-confirmar {
+    display: none;
+    position: fixed;
+    z-index: 2;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.6); /* Fondo oscuro con opacidad */
+    backdrop-filter: blur(5px);
+}
+
+.modal-content-confirmar {
+    background-color: #fefefe;
+    margin: 20% auto; /* Ajusta el margen según sea necesario */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 400px; /* Ajusta el ancho si es necesario */
+    max-width: 90%; /* Para evitar que sea demasiado grande en pantallas pequeñas */
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    animation: slide-down 0.4s ease;
+}
+
+/* Animación para el modal */
+@keyframes slide-down {
+    from {
+        transform: translateY(-30%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.modal-content-confirmar p {
+    margin-bottom: 20px;
+    font-size: 18px; /* Ajusta el tamaño de la fuente si es necesario */
+    color: #333;
+    text-align: center;
+}
+
+.modal-content-confirmar button {
+    background-color: #4CAF50; /* Color del botón Sí */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.modal-content-confirmar button#confirmNo {
+    background-color: #f44336; /* Color del botón No */
+}
+
+.modal-content-confirmar button:hover {
+    background-color: #45a049; /* Color del botón Sí al pasar el ratón */
+}
+
+.modal-content-confirmar button#confirmNo:hover {
+    background-color: #d32f2f; /* Color del botón No al pasar el ratón */
+}

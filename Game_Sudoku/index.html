@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SUDOKU GAME</title>
+    <link rel="stylesheet" href="CSS/style.css">
+    <link rel="stylesheet" href="CSS/modal.css">
+    <link rel="stylesheet" href="CSS/modal-confirmar.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Oswald:wght@400;500&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1>SUDOKU GAME</h1>
+
+        <!-- Modal Structure -->
+        <div id="miModal" class="modal">
+            <div class="modal-content">
+                <span class="close-button">&times;</span>
+                <p id="modal-mensaje"></p>
+            </div>
+        </div>
+
+        <!-- Modal Confirmar -->
+        <div id="confirmModal" class="modal-confirmar">
+            <div class="modal-content-confirmar">
+                <p>Juego se inició. Si confirmas, se perderán los cambios realizados. ¿Quieres continuar?</p>
+                <button id="confirmYes">Sí</button>
+                <button id="confirmNo">No</button>
+            </div>
+        </div>
+
+        <!-- Modal de Personalización -->
+        <div id="modal-personalizacion" class="modal-personalizacion">
+            <div class="modal-content-personalizacion">
+                <h2 class="modal-title">Personalización</h2>
+
+                <div class="option-group">
+                    <label>
+                        <input type="radio" name="effect" value="sin-efecto" checked>
+                        Sin Efecto
+                    </label>
+                    <label>
+                        <input type="radio" name="effect" value="con-efecto">
+                        Con Efecto
+                    </label>
+                </div>
+
+                <div class="selectors">
+                    <div class="select-options" id="select-sin-efecto">
+                        <select id="detalles-sin-efecto">
+                            <option value="">Seleccione una opción...</option>
+                            <option value="botones">Botones</option>
+                            <option value="celdas">Celdas</option>
+                            <option value="tabla">Tabla</option>
+                            <option value="subtablero">Subtablero</option>
+                            <option value="resalto">Resalto</option>
+                        </select>
+                    </div>
+
+                    <div class="select-options" id="select-con-efecto" style="display:none;">
+                        <select id="detalles-con-efecto">
+                            <option value="">Seleccione una opción...</option>
+                            <option value="botones">Botones</option>
+                            <option value="modalidades">Modalidades</option>
+                            <option value="celdas">Celdas</option>
+                        </select>
+                    </div>
+
+                    <div class="border-fondo">
+                        <label>
+                            <input type="checkbox" id="fondo" checked disabled>
+                            Fondo
+                        </label>
+                        <label>
+                            <input type="checkbox" id="borde" disabled>
+                            Borde
+                        </label>
+                    </div>
+                </div>
+
+                <div class="color-palette" style="display:none;">
+                    <label for="color">Seleccione un color:</label>
+                    <input type="color" id="color" name="color">
+                </div>
+
+                <div class="modal-buttons">
+                    <button id="restore-btn">Restaurar Cambios</button>
+                    <button id="apply-btn">Aplicar Cambios</button>
+                </div>
+            </div>
+        </div>
+
+        <ul>
+            <li><button id="FACIL" class="dificultad">FÁCIL</button></li>
+            <li><button id="MEDIO" class="dificultad">MEDIO</button></li>
+            <li><button id="DIFICIL" class="dificultad">DIFÍCIL</button></li>
+            <li><button id="EXPERTO" class="dificultad">EXPERTO</button></li>
+            <li><button id="EXTREMO" class="dificultad">EXTREMO</button></li>
+        </ul>
+
+        <div class="sudoku-wrapper">
+            <div class="left-panel">
+                <div class="texto-container">
+                    <h2>¿Cómo jugar Sudoku?</h2>
+                    <p>El Sudoku es un juego de lógica que consiste en llenar una cuadrícula de 9x9 celdas dividida en subcuadrículas de 3x3, con números del 1 al 9.</p>
+                    <h3>Funcionamiento de la web:</h3>
+                    <ul class="sudoku-list">
+                        <li>Puedes seleccionar una dificultad para empezar un nuevo juego de Sudoku.</li>
+                        <li>Haz clic en una celda vacía y luego selecciona un número del panel de números para rellenarla.</li>
+                        <li>Utiliza el botón <strong><i>"Completar Sudoku"</i></strong> para resolver el Sudoku automáticamente si te quedas atascado.</li>
+                        <li>Puedes ver tus errores. Tras pulsar <strong><i>"Comprobar"</i></strong>. Aparecerán los errores y aciertos marcadas.</li>
+                    </ul>
+                    <h3>Reglas:</h3>
+                    <ul class="sudoku-list">
+                        <li>No puedes repetir números en ninguna fila, columna o subcuadrícula de 3x3.</li>
+                        <li>El juego solo permite números del 1 al 9.</li>
+                        <li>Puedes usar las anotaciones pequeñas en las celdas para ayudarte a deducir la solución. Pulsando <strong><i>"Anotaciones"</i></strong></li>
+                    </ul>
+                    <h3>Características adicionales:</h3>
+                    <ul class="sudoku-list">
+                        <li>Es posible utilizar los números para marcar o desmarcar otros y también añadirlos.</li>
+                        <li>El botón de retroceso te permite deshacer el último movimiento.</li>
+                    </ul>
+                    <button id="personalizarBtn">Personalizar</button>
+                </div>
+            </div>
+            
+            <div class="tablero-container">
+                <div class="header">
+                    <div class="vidas">
+                        <span>Vidas: <span id="vidas">3</span></span>
+                    </div>
+                    <div class="temporizador">
+                        <span>Tiempo: <span id="tiempo">00:00</span></span>
+                        <button id="boton-iniciar">Iniciar Juego</button>
+                        <button id="boton-pausa" style="display: none;" onclick="pausarReanudarJuego()">
+                            <!-- Icono de pausa por defecto -->
+                            <svg class="icono-pausa" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M6 19H8V5H6V19ZM16 5H14V19H16V5Z"/>
+                            </svg>
+                            <!-- Icono de reanudar oculto por defecto -->
+                            <svg class="icono-reanudar" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M6 4L18 12L6 20V4Z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Elemento de carga -->
+                <div id="loading" style="display: none;">
+                    <p>Cargando...</p>
+                    <!-- Aquí puedes añadir una animación si lo deseas -->
+                </div>
+                
+                <div id="sudoku-container">
+                    <!-- Aquí se generará el tablero de Sudoku -->
+                </div>
+                <button id="boton-completar" onclick="mostrarSudoku()">Completar Sudoku</button>
+            </div>
+
+            <div class="right-panel">
+                <div class="numeros-container">
+                    <div id="numeros">
+                        <button class="numero">1</button>
+                        <button class="numero">2</button>
+                        <button class="numero">3</button>
+                        <button class="numero">4</button>
+                        <button class="numero">5</button>
+                        <button class="numero">6</button>
+                        <button class="numero">7</button>
+                        <button class="numero">8</button>
+                        <button class="numero">9</button>
+                    </div>
+                    <button id="boton-retroceso" class="boton retroceso" onclick="deshacerCambio()">Retroceder</button>
+                    <div class="botones-abajo">
+                        <button id="boton-comprobar" class="boton-abajo boton-desactivado" onclick="comprobarTablero()">Comprobar</button>
+                        <button id="boton-notacion" class="boton-abajo" onclick="modoAnotaciones()">
+                            <span id="texto-anotaciones">Anotaciones</span>
+                            <span id="estado-anotaciones">Desactivado</span>
+                        </button>
+                    </div> 
+                </div>
+            </div> 
+        </div>
+    </div>
+
+    <script src="JS/gameSetup.js"></script>
+    <script src="JS/boardCreation.js"></script>
+    <script src="JS/sudokuLogic.js"></script>
+    <script src="JS/localStorage.js"></script>
+    <script src="JS/annotations.js"></script>
+    <script src="JS/interfaceSudoku.js"></script>
+    <script src="JS/modal.js"></script>
+    <script src="JS/modalPersonalizacion.js"></script>
+    <script src="JS/colours.js"></script>
+
+    <!-- Carga el archivo controlBoards.js -->
+    <!-- <script src="JS/controlBoards.js"></script> 
+     <button id="generar-tableros">Generar y Guardar Tableros</button>
+    <script>
+        document.getElementById('generar-tableros').addEventListener('click', function() {
+            generarYGuardarTableros();
+        });
+    </script> -->
+</body>
+</html>

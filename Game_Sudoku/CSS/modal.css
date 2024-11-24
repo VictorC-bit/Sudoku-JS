@@ -1,0 +1,93 @@
+.modal-personalizacion {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content-personalizacion {
+    background-color: #fefefe;
+    margin: 20% auto;
+    padding: 15px;
+    border: 1px solid #888;
+    width: 400px;
+    height: auto;
+    max-height: 90%;
+    overflow-y: auto;
+    border-radius: 8px;
+}
+
+.modal-title {
+    margin-bottom: 20px;
+    font-size: 1.8em;
+}
+
+.option-group {
+    margin-bottom: 15px;
+}
+
+.option-group label {
+    margin: 0 10px;
+    cursor: pointer;
+}
+
+.selectors {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.select-options, .border-fondo {
+    flex: 1;
+}
+
+.select-options select {
+    width: 100%;
+    margin-right: 15px;
+}
+
+.border-fondo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.border-fondo label {
+    margin: 0 10px;
+    cursor: pointer;
+}
+
+.color-palette {
+    margin-bottom: 15px;
+}
+
+.color-palette label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.color-palette input[type="color"] {
+    width: 100%;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
+.modal-buttons button {
+    flex: 1;
+    margin: 0 10px;
+    padding: 10px;
+    font-size: 0.9em;
+    border-radius: 5px;
+    border: 1px solid #888;
+}

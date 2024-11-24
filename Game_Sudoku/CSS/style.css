@@ -1,0 +1,681 @@
+/* Estilo body */
+body {
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background-color: #f8f4f1;
+}
+
+/* Contenedor principal */
+.container {
+    text-align: center;
+    max-width: 1800px;
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Título con dificultades */
+h1 {
+    color: #000;
+    font-size: 2.5em;
+    font-family: 'Times New Roman', Times, serif;
+    margin: 10px;
+}
+
+/* Lista de botones de dificultad */
+ul {
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 0;
+    margin: 15px 0;
+}
+
+li {
+    margin: 15px;
+}
+
+button {
+    display: inline-block;
+    padding: 5px 50px;
+    font-size: 1em;
+    background-color: var(--botones-color, #e07b39);
+    color: var(--botones-text-color, white);
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s;
+    border-radius: 5px;
+    font-family: 'Oswald', sans-serif;
+}
+
+button:hover {
+    background-color: var(--boton-color, #d45d1b);
+}
+
+svg {
+    width: 20px; 
+    height: 20px;
+    fill: var(--botones-color, #f3a847);
+    background-color: #f8f4f1;
+}
+
+/* Estilos para los botones de dificultad */
+.dificultad {
+    color: white;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s;
+    border-radius: 5px;
+    font-family: 'Oswald', sans-serif;
+    padding: 10px 20px;
+    font-size: 1em;
+}
+
+/* Color más intenso para el botón seleccionado */
+.dificultad.seleccionado {
+    background-color: var(--modalidad-color, #b54d26);
+}
+
+/* Estructura texto, tablero y números */
+.sudoku-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+/* Panel izquierdo */
+.left-panel {
+    min-width: 300px;
+    max-width: 400px;
+    box-sizing: border-box;
+    padding: 10px;
+    margin-right: 150px;
+}
+
+/* Panel derecho */
+.right-panel {
+    min-width: 300px;
+    max-width: 400px;
+    box-sizing: border-box;
+    padding: 10px;
+    margin-top: 10%;
+}
+
+#sudoku-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 5%;
+    margin-top: 2%;
+}
+
+/* Estilo del contenedor de cabecera */
+.header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.vidas, .temporizador {
+    font-size: 1em;
+    font-family: 'Oswald', sans-serif;
+    color: #333;
+}
+
+/* Estilo del tablero con celdas */
+.tablero-container {
+    flex-basis: 600px;
+    width: 600px;
+    height: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    position: relative;
+    padding: 0
+}
+
+/* Estilo tablero con celdas */
+.tablero {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    background-color: var(--tabla-color, #fff5e6);
+    padding: 20px;
+    border: 2px solid var(--botones-color, #e07b39);
+    user-select: none;
+}
+
+.subTablero {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    grid-gap: 2px;
+    background-color: var(--subTablero-color, #fff5e6);
+    padding: 5px;
+}
+
+.celdas-sudoku {
+    color: var(--celdas-text-color, #000);
+    width: 50px;
+    height: 50px;
+    font-size: 1.6em;
+    text-align: center;
+    background-color: var(--celdas-color, #ffffff);
+    border: 2px solid #fff5e6;
+    caret-color: transparent;
+    transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+    font-family: 'Oswald', sans-serif;
+}
+.celdas-sudoku:focus {
+    outline: none;
+    background-color: var(--celda-fondo, #fff5e6);
+    border: 2px solid var(--botones-color, #e07b39);
+    color: var(--celdas-text-color, #333);
+}
+
+.celda-contenedor {
+    position: relative;
+}
+
+/* Estilo para anotaciones de las celdas */
+.notaciones-recuadro {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 1px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.numero-notacion {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: transparent;
+    padding: 1px;
+    font-size: 0.6em;
+}
+
+.numero-notacion.mostrar {
+    color: var(--celdas-text-color, #000);
+}
+
+/* Clase para ocultar celdas */
+.celda-contenedor, .celdas-sudoku {
+    position: relative;
+}
+
+.celda-contenedor.hidden, .celdas-sudoku.hidden {
+    visibility: hidden;
+}
+
+/* Números del HTML y Texto */
+/* Números */
+.numeros-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+#numeros {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    gap: 10px;
+}
+
+.numero {
+    padding: 15px 30px;
+    font-size: 1.2em;
+    color: var(--botones-text-color, white);
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: 'Oswald', sans-serif;
+}
+
+/* Texto */
+.texto-container {
+    display: flex;
+    flex-direction: column;
+    font-size: 0.9em;
+    font-family: 'Oswald', sans-serif;
+    padding: 10px;
+    text-align: justify;
+}
+
+.sudoku-list {
+    display: flex; 
+    flex-direction: column;
+    list-style-type: disc;
+    margin: 2px;
+    padding-left: 20px;
+}
+
+.sudoku-list li {
+    margin: 2px 0;
+    text-align: left;
+}
+
+h2 {
+    font-family: 'Lobster', sans-serif;
+    text-align: center;
+    margin: 5px 0;
+    font-size: 1.5em;
+}
+
+h3 {
+    text-align: left;
+    margin-bottom: 2px;
+    font-size: 1.2em;
+}
+
+p {
+    text-align: left;
+    margin-bottom: 2px;
+}
+
+.texto-container button {
+    margin: 10px;
+    padding: 5px;
+    font-size: 1.2em;
+}
+
+/* Botón de retroceso */
+.retroceso {
+    margin-top: 30px;
+    padding: 15px 80px;
+    font-size: 1.1em;
+}
+
+/* Botones para verificar y anotar */
+/* Estilo para el botón de comprobación deshabilitado */
+.boton-desactivado {
+    opacity: 0.3;
+}
+
+/* Estilo para el botón de comprobación habilitado */
+.boton-habilitado {
+    cursor: pointer;
+}
+
+.botones-abajo {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    margin-top: 30px;
+}
+
+#boton-completar {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    top: 115%;
+}
+
+.boton-abajo {
+    padding: 10px 20px;
+    font-size: 1.1em;
+    color: var(--botones-text-color, white);
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    min-width: 100px;
+    font-family: 'Oswald', sans-serif;
+}
+
+#boton-notacion {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: none;
+    cursor: pointer;
+}
+
+#texto-anotaciones {
+    margin-bottom: 2px;
+}
+
+#estado-anotaciones {
+    font-size: 1em;
+    transition: transform 0.3s ease-in-out;
+}
+
+#estado-anotaciones.animated {
+    animation: changeSize 0.5s ease-in-out;
+}
+/* Estilos al comprobar tablero */
+.correcto {
+    background-color: #a5d6a7;
+    color: #2e7d32;
+}
+
+.incorrecto {
+    background-color: #ef9a9a;
+    color: #b71c1c;
+}
+
+/* Estilos para resaltar celdas y notaciones */
+.celdas-sudoku.resaltar,
+.numero.resaltar,
+.numero-notacion.resaltar {
+    background-color: var(--resaltar-color, #f3a847);
+    color: var(--botones-text-color, #333);
+}
+
+.numero-notacion.resaltar {
+    margin: 0;
+    border-radius: 3px;
+}
+
+.temporizador {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#boton-pausa {
+    background-color: #f0f0f0;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+}
+
+.icono-pausa, .icono-reanudar {
+    display: none;
+}
+
+#boton-pausa .icono-pausa {
+    display: inline;
+}
+
+#boton-pausa .icono-reanudar {
+    display: none;
+}
+
+/* Modal Background */
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 1000; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgba(0, 0, 0, 0.5); 
+    transition: opacity 0.3s ease;
+    opacity: 0;
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #f8f4f1;
+    margin: 6% auto; 
+    padding: 20px;
+    border: 1px solid #333;
+    width: 50%; 
+    max-width: 800px; 
+    border-radius: 8px; 
+    position: relative;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border: 2px solid #e07b39;
+}
+
+#modal-mensaje {
+    font-size: 1.2em;
+    text-align: center;
+}
+
+/* Estilo para el botón de personalización */
+.btn-customize {
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 20px;
+}
+
+.close-button-tiempo:hover,
+.close-button-tiempo:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Close Button */
+.close-button {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Estilo para la vida */
+#vidas {
+    font-size: 1em;
+    position: absolute;
+    margin-left: 5px;
+    transition: transform 0.3s ease-in-out;
+}
+
+#vidas.animated {
+    animation: perderVida 0.5s ease-in-out;
+}
+
+/* Show the modal */
+.modal.show {
+    display: block;
+    opacity: 1;
+}
+
+.close-button-tiempo {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close-button-tiempo:hover,
+.close-button-tiempo:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Estilos para el mensaje de carga */
+#loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    background: rgba(255, 255, 255, 0.8);
+    border: 2px solid #ddd;
+    padding: 20px;
+    border-radius: 8px;
+    z-index: 10; /* Asegúrate de que esté encima de otros elementos */
+}
+
+#loading p {
+    margin: 0;
+    font-size: 18px;
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Animación de carga */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+#loading::after {
+    content: '';
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    border-top: 4px solid #3498db;
+    animation: spin 1s linear infinite;
+    margin-top: 10px;
+}
+
+/* Media Queries */
+@media (max-width: 1024px) {
+    .sudoku-wrapper {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .right-panel,
+    .left-panel {
+        margin: 20px 0;
+    }
+
+    #sudoku-container {
+        width: 600px;
+        height: 600px;
+        margin-bottom: 13%;
+    }
+
+    /* Ajuste para los números en pantallas pequeñas */
+    #numeros {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        margin-top: 20%;
+    }
+
+    .numero {
+        padding: 10px 25px;
+        font-size: 1em;
+    }
+
+    .vidas, .temporizador {
+        margin-bottom: 5px;
+    }
+
+    .texto-container {
+        width: 100%;
+        max-width: 1000px;
+        margin: 20px auto;
+        padding: 0 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 1.5em;
+    }
+
+    .sudoku-wrapper {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .right-panel,
+    .left-panel {
+        min-width: 250px;
+        max-width: 350px;
+    }
+
+    #sudoku-container {
+        width: 400px;
+        height: 400px;
+        margin-bottom: 21.3%;
+    }
+
+    /* Ajuste para los números en pantallas pequeñas */
+    #numeros {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        margin-top: 25%;
+    }
+
+    .numero {
+        padding: 10px 25px;
+        font-size: 1em;
+    }
+
+    .vidas, .temporizador {
+        margin-bottom: 100px;
+    }
+
+    .texto-container {
+        width: 100%;
+        max-width: 600px;
+        margin: 20px auto;
+        padding: 0 15px;
+    }
+}
+
+/* Efecto de transición para el estado de anotaciones */
+@keyframes changeSize {
+    0% {
+        transform: scale(1);
+        color: white;
+    }
+    50% {
+        transform: scale(2);
+        color: #ffffff;
+    }
+    100% {
+        transform: scale(1);
+        color: white;
+    }
+}
+
+/* Animación de restar vida */
+@keyframes perderVida {
+    0% {
+        transform: scale(1);
+        color: #333;
+    }
+    50% {
+        transform: scale(2);
+        color: darkred;
+    }
+    100% {
+        transform: scale(1);
+        color: #333;
+    }
+}
